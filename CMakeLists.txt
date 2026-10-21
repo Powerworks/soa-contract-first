@@ -21,6 +21,7 @@ add_executable(order-service
     src/http_mini.c
     src/json_mini.c
     src/order_service.c
+    src/circuit_breaker.c
     src/main.c
 )
 

@@ -5,6 +5,7 @@
 #include "registry.h"
 #include "inventory_service.h"
 #include "order_service.h"
+#include "circuit_breaker.h"
 
 int main(int argc, char **argv) {
     if (argc < 2) {
@@ -21,6 +22,7 @@ int main(int argc, char **argv) {
     } else if (strcmp(role, "inventory-service") == 0) {
         http_server_run(port, inventory_handler);
     } else if (strcmp(role, "order-service") == 0) {
+        cb_init(&g_inv_cb, 3, 2, 5000); /* trip after 3 failures, recover after 5s */
         http_server_run(port, order_handler);
     } else {
         fprintf(stderr, "unknown role: %s\n", role);
