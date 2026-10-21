@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Inventory Check/Reserve Contract",
+  "description": "Contract between inventory-service and order-service.",
+  "check": {
+    "request": {
+      "type": "object",
+      "required": ["item", "quantity"],
+      "properties": {
+        "item": { "type": "string" },
+        "quantity": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "response": {
+      "type": "object",
+      "required": ["available"],
+      "properties": {
+        "available": { "type": "boolean" }
+      }
+    }
+  },
+  "reserve": {
+    "request": {
+      "type": "object",
+      "required": ["item", "quantity", "order_id"],
+      "properties": {
+        "item": { "type": "string" },
+        "quantity": { "type": "integer", "minimum": 1 },
+        "order_id": { "type": "string" }
+      }
+    },
+    "response": {
+      "type": "object",
+      "required": ["reserved", "order_id"],
+      "properties": {
+        "reserved": { "type": "boolean" },
+        "order_id": { "type": "string" }
+      }
+    }
+  }
+}

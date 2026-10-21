@@ -1,0 +1,11 @@
+flowchart LR
+    Client([Client]) -->|POST /order| OS[order-service:8081]
+    OS -->|POST /inventory/check| IS[inventory-service:8082]
+    OS -->|POST /inventory/reserve| IS
+    OS -->|GET /lookup| REG[registry:8080]
+    IS -->|GET /lookup| REG
+    
+    style OS fill:#bbf,stroke:#333
+    style IS fill:#bbf,stroke:#333
+    style REG fill:#bfb,stroke:#333
+    style Client fill:#f9f,stroke:#333
